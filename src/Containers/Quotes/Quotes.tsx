@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react"
-import { ApiQuotes, Quote } from "../../types"
+import { useCallback, useEffect, useState } from "react";
+import { ApiQuotes, Quote } from "../../types";
 import axiosApi from "../../axiosApi";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../../Components/Loader/Loader";
