@@ -1,16 +1,22 @@
 import { useCallback, useEffect, useState } from "react"
 import { ApiQuotes, Quote } from "../../types"
 import axiosApi from "../../axiosApi";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loader from "../../Components/Loader/Loader";
 
 const Quotes = () => {
     const [quotes, setQuotes] = useState<Quote[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const { category } = useParams();
 
     const fetchQuotes = useCallback(async () => {
+        setIsLoading(true);
         try {
-            const response = await axiosApi.get<ApiQuotes | null>('/quotes.json');
+            let url = '/quotes.json';
+            if (category && category !== 'all') {
+                url += `?orderBy="category"&equalTo="${category}"`;
+            }
+            const response = await axiosApi.get<ApiQuotes | null>(url);
             const quotes = response.data;
 
             if (quotes) {
@@ -25,7 +31,7 @@ const Quotes = () => {
             console.error('An error occurred while fetching the quotes', error); 
         }
         setIsLoading(false);
-    }, []);
+    }, [category]);
 
     useEffect(() => { 
         void fetchQuotes();
@@ -42,6 +48,10 @@ const Quotes = () => {
 
     if (isLoading) {
         return <Loader />
+    }
+
+    if (quotes.length === 0) {
+        return <div className="mt-3">Quotes not found</div>;
     }
 
     return (

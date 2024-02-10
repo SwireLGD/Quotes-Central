@@ -1,6 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
-import './Header.css';
 
 const Header = () => {
   return (
@@ -8,7 +6,7 @@ const Header = () => {
       <h1 className='text-light'>Quotes Central</h1>
       <nav>
         <ul className='list-group d-flex flex-row'>
-          <li className='navItem list-group-item bg-primary border-0'>
+          <li className='navItem list-group-item bg-primary text-light border-0'>
             <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : undefined}>Quotes</NavLink>
           </li>
           <li className='navItem list-group-item bg-primary border-0'>
