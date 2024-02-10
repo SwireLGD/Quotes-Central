@@ -60,7 +60,7 @@ const Quotes = () => {
                 <div key={quote.id} className="card">
                     <div className="card-body d-flex justify-content-between align-items-center">
                         <div>
-                            <h6>- {quote.author}</h6>
+                            <h6>— {quote.author}</h6>
                             <p>"{quote.text}"</p>
                         </div>
                         <div>
