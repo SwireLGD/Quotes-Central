@@ -11,15 +11,16 @@ const App = () => {
       <header>
         <Header />
       </header>
-      <main className="container-fluid mt-4">
-        <aside>
+      <main className="container-fluid mt-4 d-flex">
+        <aside className="mt-3">
+          some links
+        </aside>
+        <div className="w-75 ms-auto">
           <Routes>
             <Route path="/" element={<Quotes />} />
             <Route path="/new-quote" element={<NewQuote />} />
+            <Route path="/quotes/:id/edit" element={<NewQuote />} />
           </Routes>
-        </aside>
-        <div>
-
         </div>
       </main>
     </>

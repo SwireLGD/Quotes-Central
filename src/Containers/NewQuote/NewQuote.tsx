@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosApi from "../../axiosApi";
+import Loader from "../../Components/Loader/Loader";
 
 const NewQuote = () => {
     const params = useParams();
     const navigate = useNavigate();
-
     const [quote, setQuote] = useState({category: '', author: '', text: ''});
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchQuote = async () => {
+            setIsLoading(true);
             if (params.id) {
                 try {
                     const response = await axiosApi.get('/quotes/' + params.id + '.json');
@@ -18,7 +20,8 @@ const NewQuote = () => {
                     console.error('Failed to fetch data', error);
                 }
             }
-        }
+            setIsLoading(false);
+        };
 
         fetchQuote();
     }, [params.id]);
@@ -30,6 +33,7 @@ const NewQuote = () => {
 
     const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsLoading(true);
     
         try {
           if (params.id) {
@@ -41,7 +45,12 @@ const NewQuote = () => {
         } catch (error) {
           console.error("Failed to submit post", error);
         }
+        setIsLoading(false);
     }, [params.id, quote, navigate]);
+    
+    if (isLoading) {
+        return <Loader />;
+    }
 
     return (
         <div className="d-flex flex-column align-items-center text-center w-100 mt-5">
